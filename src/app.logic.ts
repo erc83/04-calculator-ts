@@ -6,21 +6,27 @@ console.log( argv )
 /*******************************************************************************/
 // Desarrollo esperado
 /*******************************************************************************/
+
+const { b:base, l:limit, s:showTable } = argv
+
 let outputMessage = '';
-const base = argv.b;
+// const base = argv.b;    // se comenta porque se desestructura anteriormente
 const headerMessage = `
 ==========================================
         Tabla del ${ base }
 ==========================================
 `
 
-for (let i = 1; i <= argv.l; i++ ) {
+for (let i = 1; i <= limit; i++ ) {
     outputMessage += `${ base } x ${ i } = ${ base * i }\n`;
 }
 
 
 outputMessage = headerMessage + outputMessage;
-console.log(outputMessage)
+
+if( showTable ) {                        // se imprime solo si viene el show
+    console.log(outputMessage)
+}
 
 const outputPath = `outputs`;
 
