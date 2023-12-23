@@ -76,8 +76,14 @@ npm start
 ```
 
 
-### 12.- ejecutar 
+### 12.- ejecutar para crear tabla de multiplicar 8
 
 ```
 npx ts-node src/app.ts --base 8
+```
+
+### 13.- ejecutar para aplicar los banderas necesarias 
+
+```
+npx ts-node src/app.ts --base 8 --name table --destination outputs
 ```
