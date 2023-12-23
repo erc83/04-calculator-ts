@@ -87,3 +87,56 @@ npx ts-node src/app.ts --base 8
 ```
 npx ts-node src/app.ts --base 8 --name table --destination outputs
 ```
+
+## Pasos para configurar Jest con Typescript, en Node
+
+
+#### 1. Instalaciones de desarrollo (super test es util para probar Express)
+```
+npm install -D jest @types/jest ts-jest supertest
+```
+
+
+#### 2.- Crear archivo de configuracion de Jest
+
+```
+npx jest --init
+```
+
+```txt
+The following questions will help Jest to create a suitable configuration for your project
+
+✔ Would you like to use Jest when running "test" script in "package.json"? … yes
+✔ Would you like to use Typescript for the configuration file? … yes
+✔ Choose the test environment that will be used for testing › node
+✔ Do you want Jest to add coverage reports? … no
+✔ Which provider should be used to instrument code for coverage? › v8
+✔ Automatically clear mock calls, instances, contexts and results before every test? … no
+
+✏️  Modified /package.json
+
+📝  Configuration file created at /jest.config.ts
+```
+
+#### 3.- En el archivo jest.config.js configurar
+
+
+```
+preset: 'ts-jest',
+testEnvironment: "jest-environment-node",
+
+// Opcional - The paths to modules that run some code to configure or set up the testing environment before
+// setupFiles: ['dotenv/config']
+```
+
+
+#### 4.- Crear scripts en el package.json
+
+```json
+
+"test": "jest",
+"watch": "jest --watch"
+"coverage": "jest --coverage"
+
+```
+
