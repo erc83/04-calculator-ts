@@ -74,3 +74,10 @@ npm run devmon
 npm run build
 npm start
 ```
+
+
+### 12.- ejecutar 
+
+```
+npx ts-node src/app.ts --base 8
+```
