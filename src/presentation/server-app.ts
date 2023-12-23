@@ -5,13 +5,15 @@ interface RunOptions {
     base: number;
     limit: number;
     showTable: boolean;
+    name: string;
+    destination: string;
 }
 
 
 export class ServerApp {
     
     // static run( options: RunOptions) {
-    static run( { base, limit, showTable }: RunOptions) {
+    static run( { base, limit, showTable, name, destination }: RunOptions) {
         console.log('Server running...');
         // console.log(options)
 
@@ -23,7 +25,8 @@ export class ServerApp {
         const wasCreated = new SaveFile()
             .execute({                           // tambien se puede enviar el destino y el fileName
                 fileContent:  table,
-                fileDestination: `outputs/table-${ base }`,
+                fileDestination: `${destination}/${name}-${ base }`,
+                fileName: `${name}`
             });   
 
         if ( showTable ) console.log(table); // para decir si el cliente quiere imprimir la tabla por consola
