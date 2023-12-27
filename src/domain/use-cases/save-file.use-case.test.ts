@@ -3,17 +3,19 @@ import { SaveFile } from './save-file.use-case'
 
 describe('SaveFileUseCase', () => {
 
-    // beforeEach(() => {
-    //     // clean up
-    //     fs.rmSync('outputs', { recursive: true });
-    //     
-    // });
+    const custom_options = {
+        fileContent: 'custom content',
+        fileDestination: 'custom-outputs',
+        fileName: 'custom-table-name',
+    }
 
-    // despues que lo cree lo borre y no tengamos basura
     afterEach(() => {
         // clean up
         const outputFolderExists = fs.existsSync('outputs');
         if( outputFolderExists ) fs.rmSync('outputs', { recursive: true });
+
+        const customOutputFolderExists = fs.existsSync('custom-outputs');
+        if( customOutputFolderExists ) fs.rmSync(custom_options.fileDestination, { recursive: true });
     })
 
     test('should save file with default values', () => {
@@ -39,34 +41,22 @@ describe('SaveFileUseCase', () => {
 
     })
 
-    afterEach(() => {
-        // clean up
-        const outputFolderExists = fs.existsSync('custom-outputs');
-        if( outputFolderExists ) fs.rmSync('custom-outputs', { recursive: true });
-    })
-
     test('should save file with custom values', () => {
-
-        const options = {
-            fileContent: 'custom content',
-            fileDestination: 'custom-outputs',
-            fileName: 'custom-table-name',
-        }
         // custom-outputs/custom-table-name.txt
         const saveFile = new SaveFile();
 
-        const result = saveFile.execute(options)
+        const result = saveFile.execute(custom_options)
         expect( result ).toBe( true );
         expect( result ).toBeTruthy();
 
         // const filePath = 'custom-outputs/custom-table-name.txt'
-        const filePath = `${options.fileDestination}/${options.fileName}.txt`
+        const filePath = `${custom_options.fileDestination}/${custom_options.fileName}.txt`
 
         const fileExists = fs.existsSync(filePath)// me aseguro de que exista output y table
         const fileContent = fs.readFileSync(filePath, { encoding: 'utf-8' });
 
         expect( fileExists ).toBe( true );
 
-        expect( fileContent ).toBe( options.fileContent )
+        expect( fileContent ).toBe( custom_options.fileContent )
     })
 })
