@@ -21,7 +21,7 @@ describe('Server App', () => {
 
     test('should run ServerApp with options', () => {
 
-        /* const logSpy = jest.spyOn(console, 'log');
+        const logSpy = jest.spyOn(console, 'log');
                                     // el prototype tiene el metodo de execute de la clase
         const createTableSpy = jest.spyOn( CreateTable.prototype, 'execute' );
 
@@ -54,7 +54,7 @@ describe('Server App', () => {
             fileDestination: options.destination,
             fileName: options.name,
         })
-        */
+        
 
     }) 
 
