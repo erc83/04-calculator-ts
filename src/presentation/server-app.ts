@@ -25,8 +25,8 @@ export class ServerApp {
         const wasCreated = new SaveFile()
             .execute({                           // tambien se puede enviar el destino y el fileName
                 fileContent:  table,
-                fileDestination: `${destination}/${name}-${ base }`,
-                fileName: `${name}`
+                fileDestination: destination,
+                fileName: name,
             });   
 
         if ( showTable ) console.log(table); // para decir si el cliente quiere imprimir la tabla por consola
