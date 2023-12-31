@@ -4,6 +4,11 @@ import { SaveFile } from '../domain/use-cases/save-file.use-case';
 
 describe('Server App', () => {
 
+
+    beforeEach(() => {
+        jest.clearAllMocks();
+    })
+
     test('should create ServerApp instance', () => {
 
         const serverApp = new ServerApp();
@@ -16,7 +21,7 @@ describe('Server App', () => {
 
     test('should run ServerApp with options', () => {
 
-        const logSpy = jest.spyOn(console, 'log');
+        /* const logSpy = jest.spyOn(console, 'log');
                                     // el prototype tiene el metodo de execute de la clase
         const createTableSpy = jest.spyOn( CreateTable.prototype, 'execute' );
 
@@ -49,6 +54,47 @@ describe('Server App', () => {
             fileDestination: options.destination,
             fileName: options.name,
         })
+        */
+
+    }) 
+
+
+    test('should run with custom values mocked', () => {
+        const options = {
+            base: 2,
+            limit: 10,
+            showTable: false,
+            destination: 'test-destination',
+            name: 'test-name',
+        };
+        // 
+
+        const logMock = jest.fn();
+        const logErrorMock = jest.fn();
+        const createMock = jest.fn().mockReturnValue('1 x 2 = 2');    //similar a los espias, //mockReturnValue cambia el undefined por este valor
+        const saveFileMock = jest.fn().mockReturnValue(true); // simulamos que retorna un true
+
+        global.console.log = logMock;
+        console.error = logErrorMock;
+        CreateTable.prototype.execute = createMock;
+        SaveFile.prototype.execute = saveFileMock;
+
+        ServerApp.run(options)
+
+        expect( logMock ).toHaveBeenCalledWith('Server running...')
+        expect( createMock ).toHaveBeenCalledWith({"base": options.base, "limit": options.limit})
+
+        expect( saveFileMock ).toHaveBeenCalledWith({
+            fileContent: '1 x 2 = 2',
+            fileDestination: options.destination,
+            fileName : options.name,
+        })
+        // si el archivo se crea correctamente
+        expect( logMock ).toHaveBeenCalledWith('File Created!')
+
+        // esperamos que el error mock nunca halla sido llamado
+        expect( logErrorMock ).not.toHaveBeenCalledWith();
 
     })
+
 })
